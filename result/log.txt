@@ -1,0 +1,36 @@
+200 OK, COMMAND_INJECTION, 15:51:11 30-12-2021, 
+ Volume in drive D is Code
+ Volume Serial Number is AEAF-C746
+
+ Directory of D:\xampp\htdocs\dvwa\vulnerabilities\exec
+
+22/12/2021  10:30 AM    
+          .
+22/12/2021  10:30 AM    
+          ..
+22/12/2021  10:30 AM    
+          help
+13/08/2021  03:42 AM             1,839 index.php
+22/12/2021  10:30 AM    
+          source
+               1 File(s)          1,839 bytes
+               4 Dir(s)  123,864,576,000 bytes free
+500 WARNING, COMMAND_INJECTION, 15:51:17 30-12-2021, Time out
+200 OK, COMMAND_INJECTION, 16:04:56 30-12-2021, 
+ Volume in drive D is Code
+ Volume Serial Number is AEAF-C746
+
+ Directory of D:\xampp\htdocs\dvwa\vulnerabilities\exec
+
+22/12/2021  10:30 AM    
+          .
+22/12/2021  10:30 AM    
+          ..
+22/12/2021  10:30 AM    
+          help
+13/08/2021  03:42 AM             1,839 index.php
+22/12/2021  10:30 AM    
+          source
+               1 File(s)          1,839 bytes
+               4 Dir(s)  123,864,576,000 bytes free
+500 WARNING, COMMAND_INJECTION, 16:05:01 30-12-2021, Time out
